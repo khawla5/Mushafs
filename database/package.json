@@ -1,0 +1,17 @@
+{
+  "name": "database",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Mushafs PostgreSQL migrations and seed scripts",
+  "scripts": {
+    "migrate": "node migrate.mjs",
+    "seed": "node seed.mjs",
+    "reset": "node migrate.mjs --reset && node seed.mjs"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.4.7",
+    "pg": "^8.13.1"
+  }
+}
