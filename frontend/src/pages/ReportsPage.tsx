@@ -67,7 +67,7 @@ export function ReportsPage() {
       <div className="grid" style={{ gridTemplateColumns: 'minmax(200px, 260px) minmax(0, 1fr)', alignItems: 'start' }} data-session-layout>
         <nav className="card" style={{ padding: 8 }}>
           {REPORTS.map((r) => (
-            <button key={r} className={`nav-link${r === name ? ' active' : ''}`} style={{ width: '100%', border: 0, background: r === name ? 'var(--navy-50)' : 'none', color: 'var(--text)', cursor: 'pointer', font: 'inherit', textAlign: 'start' }} onClick={() => setName(r)}>
+            <button key={r} className={`list-link${r === name ? ' active' : ''}`} onClick={() => setName(r)}>
               {t(`reports.names.${r}`)}
             </button>
           ))}
