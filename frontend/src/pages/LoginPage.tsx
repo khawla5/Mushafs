@@ -29,15 +29,15 @@ export function LoginPage() {
       <form className="login-card stack" onSubmit={submit} noValidate>
         <div className="row-between">
           <div className="brand">
-            <div className="brand-mark" style={{ color: '#fff' }}><Icon name="mic" /></div>
-            <div>
+            <div className="brand-row">
+              <div className="brand-mark" style={{ background: 'var(--navy)', color: '#f1dcc4' }}><Icon name="book" size={20} /></div>
               <div className="brand-name">{t('app.name')}</div>
-              <div className="muted" style={{ fontSize: '0.8rem' }}>{t('app.tagline')}</div>
             </div>
+            <div className="muted" style={{ fontSize: '0.8rem', letterSpacing: '0.05em' }}>{t('app.motto')} — {t('app.tagline')}</div>
           </div>
           <button type="button" className="btn btn-sm btn-ghost" onClick={() => setLocale(locale === 'ar' ? 'en' : 'ar')}>{t('common.language')}</button>
         </div>
-        <h1 style={{ fontSize: '1.25rem' }}>{t('login.title')}</h1>
+        <h1>{t('login.title')}</h1>
         {!!error && <div className="alert-box error" role="alert">{errorText(error)}</div>}
         <div className="field">
           <label htmlFor="email">{t('login.email')}</label>

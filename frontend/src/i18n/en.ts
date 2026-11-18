@@ -1,5 +1,5 @@
 export const en = {
-  app: { name: 'Mushafs', tagline: 'Production management for recited mushafs' },
+  app: { name: 'Mushafs', tagline: 'Production management for recited mushafs', motto: 'Record · Review · Perfect', quote_source: 'Al-Muzzammil 73:4' },
   common: {
     save: 'Save', cancel: 'Cancel', close: 'Close', edit: 'Edit', delete: 'Delete', add: 'Add', create: 'Create', confirm: 'Confirm',
     loading: 'Loading…', retry: 'Retry', search: 'Search', none: 'None', all: 'All', yes: 'Yes', no: 'No', back: 'Back',
@@ -138,6 +138,8 @@ export const en = {
       missed_errors: '{v}% of errors were missed by earlier rounds', red_alerts: '{v} red alerts',
     },
     expected: '{a} of {b} expected', no_data: 'no data yet', reach: 'Reach by country',
+    kpi_active: 'Active projects', kpi_of_projects: 'of {n} projects', kpi_recorded: 'Sessions recorded', kpi_of_sessions: 'of {n} sessions',
+    kpi_done: 'Sessions completed', kpi_completion: 'Completion rate', kpi_completion_sub: 'final review passed',
   },
   reports: {
     title: 'Reports', filter_project: 'Project', all_projects: 'All projects',

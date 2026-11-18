@@ -1,7 +1,7 @@
 import type { Dict } from './en';
 
 export const ar: Dict = {
-  app: { name: 'مصاحف', tagline: 'نظام إدارة إنتاج المصاحف المرتلة' },
+  app: { name: 'مصاحف', tagline: 'نظام إدارة إنتاج المصاحف المرتلة', motto: 'تسجيل · مراجعة · إتقان', quote_source: 'سورة المزمل، الآية ٤' },
   common: {
     save: 'حفظ', cancel: 'إلغاء', close: 'إغلاق', edit: 'تعديل', delete: 'حذف', add: 'إضافة', create: 'إنشاء', confirm: 'تأكيد',
     loading: 'جارٍ التحميل…', retry: 'إعادة المحاولة', search: 'بحث', none: 'لا يوجد', all: 'الكل', yes: 'نعم', no: 'لا', back: 'رجوع',
@@ -140,6 +140,8 @@ export const ar: Dict = {
       missed_errors: '{v}% من الأخطاء فاتت الجولات السابقة', red_alerts: '{v} تنبيهات حمراء',
     },
     expected: '{a} من {b} متوقعة', no_data: 'لا بيانات بعد', reach: 'الانتشار حسب الدولة',
+    kpi_active: 'المشاريع النشطة', kpi_of_projects: 'من أصل {n} مشاريع', kpi_recorded: 'الجلسات المسجلة', kpi_of_sessions: 'من أصل {n} جلسة',
+    kpi_done: 'الجلسات المنجزة', kpi_completion: 'نسبة الإنجاز', kpi_completion_sub: 'اجتازت المراجعة النهائية',
   },
   reports: {
     title: 'التقارير', filter_project: 'المشروع', all_projects: 'جميع المشاريع',

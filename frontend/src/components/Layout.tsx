@@ -9,11 +9,23 @@ function Brand() {
   const { t } = useI18n();
   return (
     <div className="brand">
-      <div className="brand-mark"><Icon name="mic" size={18} /></div>
-      <div>
+      <div className="brand-row">
+        <div className="brand-mark"><Icon name="book" size={20} /></div>
         <div className="brand-name">{t('app.name')}</div>
-        <div className="brand-sub">{t('app.tagline')}</div>
       </div>
+      <div className="brand-sub">{t('app.motto')}</div>
+    </div>
+  );
+}
+
+/** Quote card at the foot of the sidebar (Al-Muzzammil 73:4). */
+function SidebarQuote() {
+  const { t } = useI18n();
+  return (
+    <div className="sidebar-quote" lang="ar" dir="rtl">
+      <Icon name="leaf" size={22} className="sprig" />
+      وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا
+      <small>{t('app.quote_source')}</small>
     </div>
   );
 }
@@ -53,6 +65,7 @@ export function Layout() {
             {link('/admin/audit', 'shield', t('nav.audit'))}
           </>
         )}
+        <SidebarQuote />
         <div className="sidebar-foot">
           <div className="user-chip">
             <strong>{user?.full_name}</strong>

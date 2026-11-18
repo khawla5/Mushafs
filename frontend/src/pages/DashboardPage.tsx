@@ -1,11 +1,31 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { KpiTile } from '../components/KpiTile';
 import { Ring } from '../components/Ring';
 import { AlertDot, Async, Empty, ProgressBar, StageBadge, StatusBadge } from '../components/ui';
 import { useI18n } from '../i18n';
 import { useAuth } from '../lib/auth';
 import { relative } from '../lib/format';
 import { useApi } from '../lib/hooks';
+
+/** Top row of KPI tiles, computed from the projects on the dashboard (no invented trends). */
+function KpiRow({ projects }: { projects: any[] }) {
+  const { t } = useI18n();
+  const sum = (k: string) => projects.reduce((n, p) => n + (p.progress?.[k] ?? 0), 0);
+  const total = sum('total');
+  const recorded = sum('recorded');
+  const done = sum('done');
+  const active = projects.filter((p) => !['completed', 'cancelled'].includes(p.status)).length;
+  const pct = total ? Math.round((done / total) * 100) : 0;
+  return (
+    <div className="kpi-grid">
+      <KpiTile tone="sand" icon="book" label={t('dashboard.kpi_active')} value={active} sub={t('dashboard.kpi_of_projects', { n: projects.length })} />
+      <KpiTile tone="terracotta" icon="mic" label={t('dashboard.kpi_recorded')} value={recorded} sub={t('dashboard.kpi_of_sessions', { n: total })} />
+      <KpiTile tone="sage" icon="check" label={t('dashboard.kpi_done')} value={done} sub={t('dashboard.kpi_of_sessions', { n: total })} />
+      <KpiTile tone="mist" icon="chart" label={t('dashboard.kpi_completion')} value={`${pct}%`} sub={t('dashboard.kpi_completion_sub')} />
+    </div>
+  );
+}
 
 /**
  * Section 12.2 / 12.3: one dashboard, two views. Detailed (management): rings, health with reason,
@@ -31,6 +51,7 @@ export function DashboardPage() {
       <Async state={state}>
         {(d) => (
           <div className="stack">
+            <KpiRow projects={d.projects} />
             {d.view === 'detailed' && d.center_health && (
               <div className="card">
                 <div className="row-between">
