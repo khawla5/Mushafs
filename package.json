@@ -18,7 +18,9 @@
     "db:seed": "npm run seed -w database",
     "db:reset": "npm run reset -w database",
     "typecheck": "npm run typecheck -w backend && npm run typecheck -w frontend",
-    "test": "npm run test -w backend"
+    "test": "npm run test -w backend",
+    "demo": "npm run dev:demo -w frontend",
+    "build:demo": "npm run build:demo -w frontend"
   },
   "devDependencies": {
     "concurrently": "^9.1.2"

@@ -1,0 +1,6 @@
+{
+  "buildCommand": "npm run build:demo",
+  "outputDirectory": "frontend/dist",
+  "framework": null,
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+}

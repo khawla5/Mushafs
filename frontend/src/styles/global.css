@@ -93,7 +93,7 @@ small, .muted { color: var(--muted); }
    icon sits in a small dark disc with a soft sand glow; hover shows a lighter pill. */
 .topnav {
   position: sticky; top: 14px; z-index: 40; width: min(1400px, calc(100% - 32px)); margin: 14px auto 0;
-  display: flex; align-items: center; gap: 12px; padding: 7px; border-radius: 999px;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 8px 10px 8px; border-radius: 28px;
   background: linear-gradient(180deg, rgba(66, 80, 70, 0.94), rgba(50, 62, 54, 0.94));
   backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -103,11 +103,13 @@ small, .muted { color: var(--muted); }
 .brand-row { display: flex; align-items: center; gap: 10px; }
 .brand-mark { width: 38px; height: 38px; border-radius: 50%; background: rgba(255,255,255,0.1); display: grid; place-items: center; color: #e8c9a6; flex: none; }
 .brand-name { font-family: var(--font-display); font-weight: 600; font-size: 1.45rem; line-height: 1.1; color: #fbf4ea; }
-.topnav .brand { flex-direction: row; align-items: center; gap: 10px; padding-inline: 6px 10px; text-decoration: none; }
+.topnav .brand { order: 1; flex: 1; flex-direction: row; align-items: center; gap: 10px; padding-inline: 6px 10px; text-decoration: none; }
 .topnav .brand:hover { text-decoration: none; }
 .topnav .brand-motto { font-size: 0.72rem; color: #bdb19f; letter-spacing: 0.05em; white-space: nowrap; }
 
-.pills { display: flex; align-items: center; gap: 4px; flex: 1; min-width: 0; overflow-x: auto; scrollbar-width: none; padding: 2px; }
+.pills { order: 3; flex-basis: 100%; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 4px; min-width: 0; padding: 7px 2px 1px;
+  border-top: 1px solid rgba(255,255,255,0.08); scrollbar-width: none; }
+.pill-divider { width: 1px; height: 26px; background: rgba(255,255,255,0.16); margin: 0 6px; flex: none; }
 .pills::-webkit-scrollbar { display: none; }
 .pill {
   display: inline-flex; align-items: center; gap: 9px; padding: 9px 18px 9px 16px; border-radius: 999px; white-space: nowrap;
@@ -131,7 +133,7 @@ small, .muted { color: var(--muted); }
 .pill.active svg { opacity: 1; filter: drop-shadow(0 0 4px rgba(233, 199, 158, 0.8)); }
 .pill .badge { margin-inline-start: 2px; }
 
-.nav-actions { display: flex; align-items: center; gap: 6px; flex: none; }
+.nav-actions { order: 2; display: flex; align-items: center; gap: 6px; flex: none; }
 .round-btn {
   position: relative; width: 42px; height: 42px; border-radius: 50%; display: inline-grid; place-items: center; color: #e4ddd2;
   background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08); cursor: pointer;
@@ -139,33 +141,29 @@ small, .muted { color: var(--muted); }
 .round-btn:hover { background: rgba(255,255,255,0.12); color: #fff; text-decoration: none; }
 .round-btn.active { color: #e9c79e; box-shadow: 0 0 12px rgba(233, 199, 158, 0.3); }
 .round-btn .badge-count { position: absolute; top: -3px; inset-inline-end: -3px; font-size: 0.68rem; }
-.user-pill { display: inline-flex; align-items: center; gap: 8px; padding: 5px 12px 5px 5px; border-radius: 999px; cursor: pointer; color: #efe8dd;
-  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08); font: inherit; }
-.user-pill:hover { background: rgba(255,255,255,0.12); }
-.avatar { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; font-size: 0.9rem;
+.user-chip { display: inline-flex; align-items: center; gap: 9px; padding: 4px 14px 4px 4px; border-radius: 999px; color: #efe8dd;
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08); }
+[dir='rtl'] .user-chip { padding: 4px 4px 4px 14px; }
+.avatar { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; font-size: 0.9rem;
   background: linear-gradient(135deg, #d6ad84, #b0704f); color: #fff; flex: none; }
-.user-pill .user-name { max-width: 140px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 0.9rem; }
-
-.menu-anchor { position: relative; }
-.menu {
-  position: absolute; top: calc(100% + 10px); inset-inline-end: 0; min-width: 240px; z-index: 50; padding: 8px; border-radius: 18px;
-  background: rgba(50, 62, 54, 0.97); border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 18px 40px rgba(30, 24, 18, 0.35);
-  display: flex; flex-direction: column; gap: 2px; color: #e4ddd2;
-}
-.menu-head { padding: 8px 10px 10px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 4px; font-size: 0.8rem; color: #bdb19f; }
-.menu-head strong { display: block; color: #fff; font-size: 0.95rem; }
-.menu-label { font-size: 0.7rem; letter-spacing: 0.06em; color: #a99d8c; padding: 8px 10px 2px; }
-.menu-item { display: flex; align-items: center; gap: 10px; padding: 9px 10px; border-radius: 12px; color: #e4ddd2; background: none; border: 0;
-  font: inherit; cursor: pointer; text-align: start; width: 100%; }
-.menu-item:hover { background: rgba(255,255,255,0.08); color: #fff; text-decoration: none; }
-.menu-item.active { color: #e9c79e; }
-.menu-sep { height: 1px; background: rgba(255,255,255,0.1); margin: 4px 0; }
+.user-text { display: flex; flex-direction: column; line-height: 1.25; min-width: 0; }
+.user-text strong { font-size: 0.88rem; color: #fff; font-weight: 600; max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.user-text small { font-size: 0.72rem; color: #bdb19f; max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
 /* list-style buttons (e.g. the report picker) */
 .list-link { display: flex; align-items: center; gap: 10px; width: 100%; padding: 9px 12px; border-radius: 12px; border: 0; background: none;
   color: var(--text); font: inherit; cursor: pointer; text-align: start; }
 .list-link:hover { background: var(--navy-50); }
 .list-link.active { background: var(--navy-50); color: var(--navy); font-weight: 600; }
+
+/* static demo bar */
+.demo-bar { width: min(1400px, calc(100% - 32px)); margin: 12px auto 0; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px;
+  padding: 8px 14px; border-radius: 16px; background: rgba(176, 112, 79, 0.92); color: #fff8ef; font-size: 0.85rem; box-shadow: var(--shadow); }
+.demo-tag { display: inline-flex; align-items: center; gap: 6px; font-weight: 700; }
+.demo-text { flex: 1; min-width: 200px; opacity: 0.95; }
+.demo-switch { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; }
+.demo-switch select { font: inherit; border: 0; border-radius: 10px; padding: 5px 10px; background: #fff8ef; color: var(--text); }
+.demo-bar + .topnav { margin-top: 10px; }
 
 /* verse footer */
 .verse-footer { margin: 8px auto 28px; padding: 10px 22px; border-radius: 999px; text-align: center; color: #f6ecdc;
@@ -434,14 +432,12 @@ table.table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
 @media (max-width: 900px) {
   .app { grid-template-columns: 1fr; }
   /* bar becomes a rounded card: brand + actions on top, pills scroll sideways below */
-  .topnav { flex-wrap: wrap; border-radius: 26px; padding: 8px; top: 8px; width: calc(100% - 16px); margin-top: 8px; }
-  .topnav .brand { order: 1; flex: 1; }
-  .nav-actions { order: 2; }
-  .pills { order: 3; flex-basis: 100%; padding-top: 6px; border-top: 1px solid rgba(255,255,255,0.08);
+  .topnav { border-radius: 26px; padding: 8px; top: 8px; width: calc(100% - 16px); margin-top: 8px; }
+  .pills { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; padding-top: 6px;
     -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 16px, #000 calc(100% - 16px), transparent 100%);
     mask-image: linear-gradient(90deg, transparent 0, #000 16px, #000 calc(100% - 16px), transparent 100%); }
-  .topnav .brand-motto, .user-pill .user-name { display: none; }
-  .user-pill { padding: 4px; }
+  .topnav .brand-motto, .user-text { display: none; }
+  .user-chip, [dir='rtl'] .user-chip { padding: 3px; }
   [data-session-layout] { grid-template-columns: 1fr !important; }
   .content { padding: 16px 16px 40px; }
   body { background-attachment: scroll; }

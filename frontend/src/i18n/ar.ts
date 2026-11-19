@@ -234,6 +234,7 @@ export const ar: Dict = {
   },
   note_types: { title: 'أنواع الملاحظات', code: 'الرمز', name_ar: 'الاسم العربي', name_en: 'الاسم الإنجليزي', severity: 'الخطورة', clear_error: 'لحن جلي', technical: 'فني', order: 'الترتيب', new: 'نوع جديد' },
   audit: { title: 'سجل التدقيق', action: 'الإجراء', entity: 'الكيان', user: 'المستخدم', details: 'التفاصيل', time: 'الوقت', ip: 'IP' },
+  demo: { title: 'نسخة عرض', text: 'بيانات تجريبية للاطلاع فقط — التغييرات لا تُحفظ.', view_as: 'العرض بصفة' },
   errors: {
     network_error: 'تعذر الاتصال بالخادم، تحقق من الاتصال.', validation_failed: 'فضلاً راجع الحقول المظللة.',
     forbidden: 'ليست لديك صلاحية لهذا الإجراء.', not_found: 'غير موجود.', unauthorized: 'فضلاً سجّل الدخول.',
@@ -251,6 +252,6 @@ export const ar: Dict = {
     notes_required_when_not_suitable: 'الملاحظات مطلوبة عند عدم مناسبة التسجيل.', no_session_available_for_sample: 'لا توجد جلسة مرفوعة متاحة لعينة جديدة.',
     cannot_demote_self: 'لا يمكنك إيقاف حسابك أو تخفيض دورك.', reader_cannot_be_team_member: 'لا يمكن أن يكون القارئ عضوًا في الفريق أيضًا.',
     personal_data_restricted: 'البيانات الشخصية مقيدة.', session_expired: 'انتهت الجلسة، فضلاً سجّل الدخول مجددًا.',
-    invalid_credentials: 'البريد أو كلمة المرور غير صحيحة.', bad_origin: 'تم حظر الطلب.', internal_error: 'خطأ في الخادم، حاول مجددًا.',
+    invalid_credentials: 'البريد أو كلمة المرور غير صحيحة.', demo_read_only: 'هذه نسخة عرض — التغييرات لا تُحفظ.', bad_origin: 'تم حظر الطلب.', internal_error: 'خطأ في الخادم، حاول مجددًا.',
   },
 };

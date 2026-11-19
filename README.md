@@ -153,6 +153,20 @@ NODE_ENV=production npm start # serves the API and the built frontend from one N
 
 In production, serve the app over **HTTPS**: session cookies are marked `Secure`. Set `CLIENT_ORIGIN` to the public URL, and point `STORAGE_DIR` to durable storage, such as a mounted Synology share (see BRD NFR *Audio storage*). Back up both PostgreSQL (`pg_dump`) and `STORAGE_DIR`.
 
+## Static demo (shareable link, no server)
+
+The `demo` build runs entirely in the browser with fictional data: no backend, no database and no sign-in.
+A bar at the top says it is a demo and lets visitors switch roles (production manager, mujiz, reviewer, reader …).
+Changes are refused with a "demo copy" message; no real data is ever included.
+
+```bash
+npm run demo          # run the demo locally (http://localhost:5173)
+npm run build:demo    # build it into frontend/dist (static files)
+```
+
+`vercel.json` builds the demo automatically when the repository is imported into Vercel. Netlify works too
+(`frontend/public/_redirects` handles page routing). The normal `npm run build` never includes the demo code.
+
 ## Tests
 
 ```bash

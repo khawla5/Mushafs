@@ -1,5 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from 'react';
 import { api } from './api';
+import { DEMO } from '../demo/mode';
 import { useAuth } from './auth';
 import { useI18n } from '../i18n';
 import { useToast } from '../components/ui';
@@ -61,6 +62,7 @@ export function NotificationsProvider({ children }: { children: ReactNode }) {
     if (!user) return;
     reload();
     // ADM-04: instant notifications through Server-Sent Events, with a polling fallback
+    if (DEMO) return; // no live server in the static demo
     const es = new EventSource('/api/notifications/stream');
     es.addEventListener('notification', (e) => {
       try {

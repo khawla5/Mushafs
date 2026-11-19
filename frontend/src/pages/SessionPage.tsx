@@ -5,7 +5,7 @@ import { AlertDot, Async, ConfirmModal, DualDate, Empty, ErrorBox, Field, Modal,
 import { Icon } from '../components/Icon';
 import { rangeText } from '../components/TodayCard';
 import { useI18n } from '../i18n';
-import { api } from '../lib/api';
+import { api, downloadUrl, streamUrl } from '../lib/api';
 import { bytes, clock, dual, relative } from '../lib/format';
 import { useApi } from '../lib/hooks';
 import { useNotifications } from '../lib/notifications';
@@ -95,7 +95,7 @@ export function SessionPage() {
         const can = d.can;
         const round = d.current_round;
         const version = d.versions.find((v: any) => v.id === versionId);
-        const src = version ? `/api/versions/${version.id}/stream${original ? '?quality=original' : ''}` : null;
+        const src = version ? streamUrl(version.id, original) : null;
         const pendingQuality = d.quality.find((q: any) => !q.verdict);
         const rounds = d.rounds as any[];
 
@@ -224,7 +224,7 @@ export function SessionPage() {
                             <div className="meta">{v.uploaded_by_name} · {dual(v.uploaded_at, locale, true)} · {bytes(v.size_bytes)}{v.duration_sec ? ` · ${clock(v.duration_sec)}` : ''}</div>
                           </div>
                           <button className="icon-btn" title={t('player.play')} onClick={() => setVersionId(v.id)}><Icon name="play" /></button>
-                          <a className="icon-btn" title={t('common.download')} href={`/api/versions/${v.id}/download`}><Icon name="download" /></a>
+                          <a className="icon-btn" title={t('common.download')} href={downloadUrl(v.id)}><Icon name="download" /></a>
                         </div>
                       ))}
                     </div>

@@ -232,6 +232,7 @@ export const en = {
   },
   note_types: { title: 'Note types', code: 'Code', name_ar: 'Arabic name', name_en: 'English name', severity: 'Severity', clear_error: 'Clear error', technical: 'Technical', order: 'Order', new: 'New note type' },
   audit: { title: 'Audit log', action: 'Action', entity: 'Entity', user: 'User', details: 'Details', time: 'Time', ip: 'IP' },
+  demo: { title: 'Demo', text: 'Fictional data for preview only — changes are not saved.', view_as: 'View as' },
   errors: {
     network_error: 'Cannot reach the server. Check your connection.', validation_failed: 'Please check the highlighted fields.',
     forbidden: 'You do not have permission for this action.', not_found: 'Not found.', unauthorized: 'Please sign in.',
@@ -249,7 +250,7 @@ export const en = {
     notes_required_when_not_suitable: 'Notes are required when the recording is not suitable.', no_session_available_for_sample: 'No uploaded session is available for a new sample.',
     cannot_demote_self: 'You cannot deactivate or demote yourself.', reader_cannot_be_team_member: 'The reader cannot also be a team member.',
     personal_data_restricted: 'Personal data is restricted.', session_expired: 'Your session expired. Please sign in again.',
-    invalid_credentials: 'Incorrect email or password.', bad_origin: 'Request blocked.', internal_error: 'Server error. Please try again.',
+    invalid_credentials: 'Incorrect email or password.', demo_read_only: 'This is a demo copy — changes are not saved.', bad_origin: 'Request blocked.', internal_error: 'Server error. Please try again.',
   },
 };
 

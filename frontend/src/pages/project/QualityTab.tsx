@@ -4,6 +4,7 @@ import { Async, DualDate, Empty, ErrorBox, StageBadge, useToast } from '../../co
 import { Icon } from '../../components/Icon';
 import { useI18n } from '../../i18n';
 import { api } from '../../lib/api';
+import { DEMO } from '../../demo/mode';
 import { useApi } from '../../lib/hooks';
 import type { ProjectCtx } from '../ProjectPage';
 
@@ -66,7 +67,7 @@ export function QualityTab({ ctx }: { ctx: ProjectCtx }) {
       <section className="card">
         <div className="card-head">
           <h2>{t('quality.mixing')}</h2>
-          {mixingOpen && canMix && (
+          {mixingOpen && canMix && !DEMO && (
             <a className="btn btn-sm" href={`/api/projects/${p.id}/raw-archive`} download><Icon name="download" /> {t('quality.download_raw')}</a>
           )}
         </div>
