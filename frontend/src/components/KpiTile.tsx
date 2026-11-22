@@ -2,10 +2,10 @@ import type { ReactNode } from 'react';
 import { Icon } from './Icon';
 
 const PALETTES = {
-  sand: ['#fdebd3', '#f6d0a0', '#e0ac74'],
-  terracotta: ['#f1d9cc', '#c99079', '#9E6752'],
-  sage: ['#dfe4e8', '#8396a4', '#2D4354'],
-  mist: ['#e8e8e1', '#b1b3a8', '#73766A'],
+  sand: ['#f0dcc2', '#e3bf96', '#d6a473'],
+  terracotta: ['#efd2c2', '#d9a48a', '#b9775a'],
+  sage: ['#dfe5d8', '#b8c5ae', '#8a9e86'],
+  mist: ['#e3e9e6', '#c1d0ca', '#93aaa2'],
 } as const;
 
 export type KpiTone = keyof typeof PALETTES;

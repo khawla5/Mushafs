@@ -1,20 +1,17 @@
 /**
  * Demo dataset (fictional people and projects). Used only when the app is built with
  * `npm run build:demo`, so the static demo can be shared without a server or database.
- * Quran reference data (114 surahs, 60 ahzab) is read from the real migration file.
+ * Quran reference data (114 surahs, 60 ahzab) is a copy of database/migrations/002_reference_data.sql
+ * kept inside the frontend folder, so the demo builds from `frontend/` alone.
  */
-import refSql from '../../../database/migrations/002_reference_data.sql?raw';
+import quran from './quran.json';
 
 // ------------------------------------------------------------------ reference data
 export interface Surah { number: number; name_ar: string; name_en: string; ayah_count: number }
 export interface Hizb { number: number; start_surah: number; start_ayah: number; end_surah: number; end_ayah: number }
 
-export const surahs: Surah[] = [...refSql.matchAll(/\((\d+), '([^']+)', '([^']+)', (\d+)\)/g)].map((m) => ({
-  number: Number(m[1]), name_ar: m[2], name_en: m[3], ayah_count: Number(m[4]),
-}));
-export const hizbs: Hizb[] = [...refSql.matchAll(/\((\d+), (\d+), (\d+), (\d+), (\d+)\)/g)].map((m) => ({
-  number: Number(m[1]), start_surah: Number(m[2]), start_ayah: Number(m[3]), end_surah: Number(m[4]), end_ayah: Number(m[5]),
-}));
+export const surahs: Surah[] = quran.surahs;
+export const hizbs: Hizb[] = quran.hizbs;
 
 // ------------------------------------------------------------------ time helpers
 const HOUR = 3_600_000;
