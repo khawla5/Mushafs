@@ -1,7 +1,10 @@
-import { useState, type FormEvent } from 'react';
+import { lazy, Suspense, useState, type FormEvent } from 'react';
+import { DEMO } from '../demo/mode';
 import { Icon } from '../components/Icon';
 import { useI18n } from '../i18n';
 import { useAuth } from '../lib/auth';
+
+const DevRoleBar = import.meta.env.DEV && !DEMO ? lazy(() => import('../components/DevRoleBar').then((m) => ({ default: m.DevRoleBar }))) : null;
 
 export function LoginPage() {
   const { t, errorText, locale, setLocale } = useI18n();
@@ -26,6 +29,7 @@ export function LoginPage() {
 
   return (
     <div className="login-page">
+      {DevRoleBar && <div style={{ alignSelf: 'start', width: '100%' }}><Suspense fallback={null}><DevRoleBar /></Suspense></div>}
       <form className="login-card stack" onSubmit={submit} noValidate>
         <div className="row-between">
           <div className="brand">

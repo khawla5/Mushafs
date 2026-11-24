@@ -106,7 +106,7 @@ export const en = {
     open_corrections_hint: 'Upload the corrected version once all corrections are recorded.', pending_studio: 'Pending – listen in studio',
     no_notes: 'No notes',
   },
-  player: { back10: '−10 s', fwd30: '+30 s', play: 'Play', pause: 'Pause', speed: 'Speed', original: 'Original quality' },
+  player: { mark: 'Mark', mark_hint: 'Mark this second and write a note (M)', back10: '−10 s', fwd30: '+30 s', play: 'Play', pause: 'Pause', speed: 'Speed', original: 'Original quality' },
   quality: {
     title: 'Recording quality samples', first: 'First session sample', random: 'Random sample', request_random: 'Request random sample',
     requested: 'Random sample requested.', waiting: 'Waiting for the first upload', approved: 'Approved', not_suitable: 'Not suitable',
@@ -234,6 +234,7 @@ export const en = {
   note_types: { title: 'Note types', code: 'Code', name_ar: 'Arabic name', name_en: 'English name', severity: 'Severity', clear_error: 'Clear error', technical: 'Technical', order: 'Order', new: 'New note type' },
   audit: { title: 'Audit log', action: 'Action', entity: 'Entity', user: 'User', details: 'Details', time: 'Time', ip: 'IP' },
   demo: { title: 'Demo', text: 'Fictional data for preview only — changes are not saved.', view_as: 'View as' },
+  dev: { title: 'Developer mode', text: 'Switch user to see each role (development only, changes are saved).', view_as: 'Sign in as', choose: 'Choose a user' },
   errors: {
     network_error: 'Cannot reach the server. Check your connection.', validation_failed: 'Please check the highlighted fields.',
     forbidden: 'You do not have permission for this action.', not_found: 'Not found.', unauthorized: 'Please sign in.',

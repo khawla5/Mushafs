@@ -164,6 +164,10 @@ small, .muted { color: var(--muted); }
 .demo-switch { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; }
 .demo-switch select { font: inherit; border: 0; border-radius: 10px; padding: 5px 10px; background: #fff8ef; color: var(--text); }
 .demo-bar + .topnav { margin-top: 10px; }
+/* development role switcher (real app, npm run dev only) */
+.demo-bar.dev-bar { background: rgba(38, 46, 41, 0.94); color: #f3efe7; }
+.dev-bar .demo-tag { color: #e9c79e; }
+.dev-bar + .topnav { margin-top: 10px; }
 
 /* verse footer */
 .verse-footer { margin: 8px auto 28px; padding: 10px 22px; border-radius: 999px; text-align: center; color: #f6ecdc;
@@ -375,6 +379,8 @@ table.table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
 .scrubber .thumb { position: absolute; top: 5px; width: 18px; height: 18px; margin-left: -9px; border-radius: 50%; background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,0.3); }
 .scrubber .marker { position: absolute; top: 4px; width: 3px; height: 20px; margin-left: -1px; background: #ffd56b; border-radius: 2px; }
 .scrubber .marker.lahn { background: #ff8a8a; }
+.player .player-mark { background: var(--gold); color: #fff; }
+.player .player-mark:hover:not(:disabled) { background: #9a5f42; }
 .player select { background: rgba(255,255,255,0.12); color: #fff; border: 0; border-radius: 6px; padding: 4px 6px; font: inherit; }
 .player select option { color: #000; }
 

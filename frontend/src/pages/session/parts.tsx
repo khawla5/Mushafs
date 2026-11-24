@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { ErrorBox, Field, fieldErrors, useToast } from '../../components/ui';
 import { Icon } from '../../components/Icon';
 import { useI18n } from '../../i18n';
@@ -24,8 +24,10 @@ export function useAyahChoices(session: any) {
 export interface NoteDraft { id?: number; note_type_id: string; surah: string; ayah: string; time: string; body: string }
 
 /** REV-03: place a marker at the current second (or type the time) and write the note under it. */
-export function NoteForm({ session, noteTypes, now, initial, onSaved, onCancel, roundId }: {
+export function NoteForm({ session, noteTypes, now, initial, onSaved, onCancel, roundId, markSignal }: {
   session: any; noteTypes: any[]; now: number; initial?: NoteDraft; roundId: number; onSaved: () => void; onCancel?: () => void;
+  /** Set by the player's Mark button: fills the time, scrolls here and focuses the first empty field. */
+  markSignal?: { time: number; nonce: number } | null;
 }) {
   const { t, locale } = useI18n();
   const choices = useAyahChoices(session);
@@ -35,6 +37,18 @@ export function NoteForm({ session, noteTypes, now, initial, onSaved, onCancel, 
   const errs = fieldErrors(error);
   const current = choices.find((c) => String(c.surah.number) === d.surah);
   const timeValue = parseClock(d.time);
+  const formRef = useRef<HTMLDivElement>(null);
+  const typeRef = useRef<HTMLSelectElement>(null);
+  const bodyRef = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    if (!markSignal) return;
+    setD((x) => ({ ...x, time: clock(markSignal.time) }));
+    formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    const target = !d.note_type_id ? typeRef.current : bodyRef.current;
+    setTimeout(() => target?.focus({ preventScroll: true }), 350);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [markSignal?.nonce]);
 
   const save = async () => {
     if (timeValue === null) { setError({ details: [{ path: 'timestamp_sec', message: t('session.invalid_time') }] }); return; }
@@ -54,7 +68,7 @@ export function NoteForm({ session, noteTypes, now, initial, onSaved, onCancel, 
   };
 
   return (
-    <div className="card" style={{ background: 'var(--surface-2)' }}>
+    <div className="card" ref={formRef} style={{ background: 'var(--surface-2)' }}>
       <div className="row" style={{ marginBottom: 10 }}>
         <button type="button" className="btn btn-gold" onClick={() => setD((x) => ({ ...x, time: clock(now) }))}>
           <Icon name="flag" /> {t('session.marker_here', { time: clock(now) })}
@@ -66,7 +80,7 @@ export function NoteForm({ session, noteTypes, now, initial, onSaved, onCancel, 
           <input className={`input num${errs.timestamp_sec ? ' invalid' : ''}`} dir="ltr" placeholder="12:34" value={d.time} onChange={(e) => setD({ ...d, time: e.target.value })} />
         </Field>
         <Field label={t('session.type')}>
-          <select className="input" value={d.note_type_id} onChange={(e) => setD({ ...d, note_type_id: e.target.value })}>
+          <select ref={typeRef} className="input" value={d.note_type_id} onChange={(e) => setD({ ...d, note_type_id: e.target.value })}>
             <option value="">—</option>
             {noteTypes.map((nt) => <option key={nt.id} value={nt.id}>{locale === 'ar' ? nt.name_ar : nt.name_en}</option>)}
           </select>
@@ -86,7 +100,7 @@ export function NoteForm({ session, noteTypes, now, initial, onSaved, onCancel, 
           </select>
         </Field>
         <Field label={t('session.text')} full error={errs.body}>
-          <textarea className="input" value={d.body} onChange={(e) => setD({ ...d, body: e.target.value })} maxLength={4000} />
+          <textarea ref={bodyRef} className="input" value={d.body} onChange={(e) => setD({ ...d, body: e.target.value })} maxLength={4000} />
         </Field>
       </div>
       <div style={{ marginTop: 10 }}><ErrorBox error={error?.code ? error : null} /></div>

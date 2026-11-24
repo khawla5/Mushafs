@@ -15,8 +15,12 @@ export interface Marker { time: number; strong?: boolean; id: number }
  * REV-02: "like YouTube" – clear time display, 10 s back, 30 s forward, smooth scrubbing
  * (pointer drag with range-request streaming). Markers show existing notes on the timeline.
  */
-export const AudioPlayer = forwardRef<PlayerHandle, { src: string; markers?: Marker[]; onMarkerClick?: (id: number) => void; onTime?: (sec: number) => void }>(
-  function AudioPlayer({ src, markers = [], onMarkerClick, onTime }, ref) {
+export const AudioPlayer = forwardRef<PlayerHandle, {
+  src: string; markers?: Marker[]; onMarkerClick?: (id: number) => void; onTime?: (sec: number) => void;
+  /** REV-03: when set, shows a "Mark" button that pauses playback and hands the current second to the note form. */
+  onMark?: (sec: number) => void;
+}>(
+  function AudioPlayer({ src, markers = [], onMarkerClick, onTime, onMark }, ref) {
     const { t } = useI18n();
     const audio = useRef<HTMLAudioElement>(null);
     const bar = useRef<HTMLDivElement>(null);
@@ -91,8 +95,17 @@ export const AudioPlayer = forwardRef<PlayerHandle, { src: string; markers?: Mar
       setDragging(null);
     };
 
-    // Keyboard: space play/pause, arrows seek
+    /** Pause, then pass the exact current second to the caller (note form). */
+    const mark = () => {
+      const a = audio.current;
+      if (!a || !onMark) return;
+      a.pause();
+      onMark(a.currentTime);
+    };
+
+    // Keyboard: space play/pause, arrows seek, M marks the current second
     const onKeyDown = (e: React.KeyboardEvent) => {
+      if (onMark && (e.key === 'm' || e.key === 'M' || e.key === 'ة')) { e.preventDefault(); mark(); return; }
       if (e.key === ' ') { e.preventDefault(); toggle(); }
       if (e.key === 'ArrowLeft') { e.preventDefault(); seekBy(-10); }
       if (e.key === 'ArrowRight') { e.preventDefault(); seekBy(30); }
@@ -137,6 +150,11 @@ export const AudioPlayer = forwardRef<PlayerHandle, { src: string; markers?: Mar
           </button>
           <button className="btn btn-sm" onClick={() => seekBy(-10)}>{t('player.back10')}</button>
           <button className="btn btn-sm" onClick={() => seekBy(30)}>{t('player.fwd30')}</button>
+          {onMark && (
+            <button className="btn btn-sm player-mark" onClick={mark} title={t('player.mark_hint')} aria-label={t('player.mark_hint')}>
+              <Icon name="flag" size={15} /> {t('player.mark')}
+            </button>
+          )}
           <span className="player-time">{clock(shown)} / {clock(duration)}</span>
           <span className="spacer" />
           <label className="row" style={{ gap: 6, fontSize: '0.85rem' }}>

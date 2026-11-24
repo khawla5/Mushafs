@@ -23,6 +23,7 @@ export function SessionPage() {
   const [original, setOriginal] = useState(false);
   const [pendingSeek, setPendingSeek] = useState<number | null>(null);
   const [playerTime, setPlayerTime] = useState(0);
+  const [markSignal, setMarkSignal] = useState<{ time: number; nonce: number } | null>(null);
   const [editing, setEditing] = useState<NoteDraft | null>(null);
   const [confirm, setConfirm] = useState<null | 'submit' | 'pass' | 'forward'>(null);
   const [busy, setBusy] = useState(false);
@@ -136,7 +137,7 @@ export function SessionPage() {
                 {/* Player */}
                 {src ? (
                   <div className="stack" style={{ gap: 6 }}>
-                    <AudioPlayer ref={player} src={src} markers={markers} onTime={setPlayerTime} onMarkerClick={(nid) => { const n = d.notes.find((x: any) => x.id === nid); if (n) playNote(n); }} />
+                    <AudioPlayer ref={player} src={src} markers={markers} onTime={setPlayerTime} onMark={can.review && !editing ? (sec) => setMarkSignal({ time: sec, nonce: Date.now() }) : undefined} onMarkerClick={(nid) => { const n = d.notes.find((x: any) => x.id === nid); if (n) playNote(n); }} />
                     <div className="row" style={{ fontSize: '0.85rem' }}>
                       <select className="input" style={{ maxWidth: 280, minHeight: 32, padding: '4px 8px' }} value={versionId ?? ''} onChange={(e) => setVersionId(Number(e.target.value))} aria-label={t('session.versions')}>
                         {d.versions.map((v: any) => (
@@ -169,7 +170,7 @@ export function SessionPage() {
                       <NoteForm key={editing.id} session={s} roundId={round.id} noteTypes={noteTypes.data?.note_types ?? []} now={playerTime}
                         initial={editing} onCancel={() => setEditing(null)} onSaved={() => { setEditing(null); reload(); }} />
                     ) : (
-                      <NoteForm session={s} roundId={round.id} noteTypes={noteTypes.data?.note_types ?? []} now={playerTime} onSaved={reload} />
+                      <NoteForm session={s} roundId={round.id} noteTypes={noteTypes.data?.note_types ?? []} now={playerTime} markSignal={markSignal} onSaved={reload} />
                     )}
                     <p className="faint" style={{ fontSize: '0.8rem', marginTop: 8 }}>{t('session.general_notes_hint')}</p>
                   </section>

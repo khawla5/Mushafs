@@ -108,7 +108,7 @@ export const ar: Dict = {
     open_corrections_hint: 'ارفع النسخة المصححة بعد تسجيل جميع التصحيحات.', pending_studio: 'معلّقة – سماع في الاستوديو',
     no_notes: 'لا ملاحظات',
   },
-  player: { back10: '−10 ث', fwd30: '+30 ث', play: 'تشغيل', pause: 'إيقاف', speed: 'السرعة', original: 'الجودة الأصلية' },
+  player: { mark: 'علامة', mark_hint: 'ضع علامة عند هذه الثانية واكتب الملاحظة (M)', back10: '−10 ث', fwd30: '+30 ث', play: 'تشغيل', pause: 'إيقاف', speed: 'السرعة', original: 'الجودة الأصلية' },
   quality: {
     title: 'عينات جودة التسجيل', first: 'عينة الجلسة الأولى', random: 'عينة عشوائية', request_random: 'طلب عينة عشوائية',
     requested: 'طُلبت عينة عشوائية.', waiting: 'بانتظار أول رفع', approved: 'معتمد', not_suitable: 'غير مناسب',
@@ -236,6 +236,7 @@ export const ar: Dict = {
   note_types: { title: 'أنواع الملاحظات', code: 'الرمز', name_ar: 'الاسم العربي', name_en: 'الاسم الإنجليزي', severity: 'الخطورة', clear_error: 'لحن جلي', technical: 'فني', order: 'الترتيب', new: 'نوع جديد' },
   audit: { title: 'سجل التدقيق', action: 'الإجراء', entity: 'الكيان', user: 'المستخدم', details: 'التفاصيل', time: 'الوقت', ip: 'IP' },
   demo: { title: 'نسخة عرض', text: 'بيانات تجريبية للاطلاع فقط — التغييرات لا تُحفظ.', view_as: 'العرض بصفة' },
+  dev: { title: 'وضع المطوّر', text: 'بدّل المستخدم لترى كل دور (للتطوير فقط، والتعديلات تُحفظ).', view_as: 'الدخول بصفة', choose: 'اختر مستخدمًا' },
   errors: {
     network_error: 'تعذر الاتصال بالخادم، تحقق من الاتصال.', validation_failed: 'فضلاً راجع الحقول المظللة.',
     forbidden: 'ليست لديك صلاحية لهذا الإجراء.', not_found: 'غير موجود.', unauthorized: 'فضلاً سجّل الدخول.',

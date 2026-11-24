@@ -2,7 +2,8 @@ import type { Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
 import { one, query } from '../config/db.js';
 import { clearAuthCookie, parseRoles, setAuthCookie, signToken } from '../middleware/auth.js';
-import { badRequest, unauthorized } from '../utils/http.js';
+import { badRequest, forbidden, notFound, unauthorized } from '../utils/http.js';
+import { many } from '../config/db.js';
 import { audit } from '../services/audit.service.js';
 
 const DUMMY_HASH = '$2a$10$CwTycUXWue0Thq9StjUM0uJ8.wO3xrZ1V0YgJ8y8O7a1E8XG1y3eK';
@@ -52,4 +53,32 @@ export async function updateMe(req: Request, res: Response) {
     [req.user!.id, locale ?? null, full_name ?? null, phone !== undefined, phone ?? null],
   );
   res.json({ user: await meData(req.user!.id) });
+}
+
+// ---------------------------------------------------------------------------
+// Development-only role switcher. Routes are registered only when NODE_ENV=development
+// and DEV_ROLE_SWITCHER=true, and requests must come from this machine (loopback).
+// ---------------------------------------------------------------------------
+function assertLocal(req: Request) {
+  const ip = (req.ip || req.socket.remoteAddress || '').replace('::ffff:', '');
+  if (!['127.0.0.1', '::1', 'localhost'].includes(ip)) throw forbidden('dev_switch_local_only');
+}
+
+export async function devUsers(req: Request, res: Response) {
+  assertLocal(req);
+  const rows = await many(
+    `SELECT id, full_name, email, roles::text[] AS roles FROM users WHERE is_active
+     ORDER BY array_position(ARRAY['admin','supervisor','production_manager','mujiz','technician','reviewer','mixing_lead','reader']::user_role[], roles[1]), full_name`,
+  );
+  res.json({ users: rows.map((u) => ({ ...u, roles: parseRoles(u.roles) })) });
+}
+
+export async function devLogin(req: Request, res: Response) {
+  assertLocal(req);
+  const { user_id } = req.body as { user_id: number };
+  const user = await one('SELECT id, is_active FROM users WHERE id = $1', [user_id]);
+  if (!user || !user.is_active) throw notFound('user_not_found');
+  await audit(user.id, 'dev_role_switch', 'user', user.id, null, undefined, req);
+  setAuthCookie(res, signToken(user.id));
+  res.json({ user: await meData(user.id) });
 }

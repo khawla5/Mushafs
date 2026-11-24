@@ -27,6 +27,8 @@ const schema = z.object({
   LIGHT_COPY_BITRATE: z.string().default('96k'),
   TIMER_INTERVAL_SECONDS: z.coerce.number().int().positive().default(60),
   LOG_LEVEL: z.string().default('info'),
+  // Development-only quick role switcher (ignored unless NODE_ENV=development)
+  DEV_ROLE_SWITCHER: z.enum(['true', 'false']).default('false'),
 });
 
 const parsed = schema.safeParse(process.env);
@@ -42,6 +44,7 @@ const raw = parsed.data;
 export const env = {
   ...raw,
   isProd: raw.NODE_ENV === 'production',
+  devRoleSwitcher: raw.NODE_ENV === 'development' && raw.DEV_ROLE_SWITCHER === 'true',
   storageDir: path.isAbsolute(raw.STORAGE_DIR) ? raw.STORAGE_DIR : path.resolve(projectRoot, raw.STORAGE_DIR),
   clientOrigins: raw.CLIENT_ORIGIN.split(',').map((s) => s.trim()).filter(Boolean),
 };

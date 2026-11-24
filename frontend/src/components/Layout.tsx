@@ -8,6 +8,8 @@ import { Icon } from './Icon';
 
 // Loaded only in the static demo build; removed from the normal bundle.
 const DemoBar = DEMO ? lazy(() => import('./DemoBar').then((m) => ({ default: m.DemoBar }))) : null;
+// Development-only role switcher for the real app; removed from production builds.
+const DevRoleBar = import.meta.env.DEV && !DEMO ? lazy(() => import('./DevRoleBar').then((m) => ({ default: m.DevRoleBar }))) : null;
 
 /**
  * Top navigation: a floating pill bar with every section that the old sidebar had —
@@ -32,6 +34,7 @@ export function Layout() {
   return (
     <div className="app">
       {DemoBar && <Suspense fallback={null}><DemoBar /></Suspense>}
+      {DevRoleBar && <Suspense fallback={null}><DevRoleBar /></Suspense>}
       <header className="topnav" aria-label="navigation">
         <Link to="/" className="brand">
           <span className="brand-mark"><Icon name="book" size={19} /></span>

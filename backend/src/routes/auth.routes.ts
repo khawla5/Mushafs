@@ -7,6 +7,8 @@ import { requireAuth } from '../middleware/auth.js';
 import { documentUpload } from '../middleware/upload.js';
 import { validate } from '../middleware/validate.js';
 import { ah } from '../utils/http.js';
+import { env } from '../config/env.js';
+import { logger } from '../utils/logger.js';
 
 const router = Router();
 
@@ -21,6 +23,13 @@ router.post(
   ah(c.login),
 );
 router.post('/logout', ah(c.logout));
+
+// Development-only quick role switcher (see .env DEV_ROLE_SWITCHER). Never registered in production.
+if (env.devRoleSwitcher) {
+  logger.warn('DEV_ROLE_SWITCHER is enabled: users can switch accounts without a password from this machine');
+  router.get('/dev-users', ah(c.devUsers));
+  router.post('/dev-login', validate(z.object({ user_id: z.number().int().positive() })), ah(c.devLogin));
+}
 router.get('/me', requireAuth, ah(c.me));
 router.patch(
   '/me',
