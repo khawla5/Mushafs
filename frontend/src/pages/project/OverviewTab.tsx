@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { DualDate, ErrorBox, Field, ProgressBar, Weekdays, useToast } from '../../components/ui';
+import { RiwayahSelect } from '../../components/RiwayahSelect';
 import { useI18n } from '../../i18n';
 import { api } from '../../lib/api';
 import { useAuth } from '../../lib/auth';
@@ -70,7 +71,7 @@ export function OverviewTab({ ctx }: { ctx: ProjectCtx }) {
         {editing ? (
           <div className="stack">
             <Field label={t('projects.title_label')}><input className="input" value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} /></Field>
-            <Field label={t('projects.riwayah')}><input className="input" value={form.riwayah} onChange={(e) => setForm({ ...form, riwayah: e.target.value })} /></Field>
+            <Field label={t('projects.riwayah')}><RiwayahSelect value={form.riwayah} onChange={(v) => setForm({ ...form, riwayah: v })} /></Field>
             <Field label={t('projects.recording_days')} hint={t('project.recording_days_hint')}>
               <Weekdays value={form.recording_weekdays} onChange={(v) => setForm({ ...form, recording_weekdays: v })} />
             </Field>

@@ -71,6 +71,7 @@ export const ar: Dict = {
     progress: 'التقدم', recorded: 'مسجلة', reviewed: 'مراجعة', done: 'منجزة', none: 'لا توجد مشاريع للعرض.',
     create_title: 'إنشاء مشروع', title_label: 'العنوان', session_count: 'عدد الجلسات', recording_days: 'أيام التسجيل المتفق عليها',
     sessions_per_day: 'عدد الجلسات في يوم التسجيل', description: 'الوصف', mushaf_hint: 'المصحف دائمًا 60 جلسة (حزب لكل جلسة)، وتُنشأ النطاقات عند الاعتماد.',
+    riwayah_imam: 'الإمام',
     created: 'أُنشئ المشروع وأُرسل للاعتماد.',
   },
   project: {

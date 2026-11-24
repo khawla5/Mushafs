@@ -1,6 +1,8 @@
 import { useState, type FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ErrorBox, Field, fieldErrors, Weekdays, useToast } from '../components/ui';
+import { RiwayahSelect } from '../components/RiwayahSelect';
+import { DEFAULT_RIWAYAH } from '../lib/riwayat';
 import { useI18n } from '../i18n';
 import { api } from '../lib/api';
 import { useApi } from '../lib/hooks';
@@ -13,7 +15,7 @@ export function ProjectNewPage() {
   const readers = useApi<any>('/users?role=reader&active=true');
   const templates = useApi<any>('/templates');
   const [form, setForm] = useState({
-    title: '', project_type: 'mushaf', riwayah: 'حفص عن عاصم', reader_id: '', session_count: '',
+    title: '', project_type: 'mushaf', riwayah: DEFAULT_RIWAYAH, reader_id: '', session_count: '',
     recording_weekdays: [0, 1, 2, 3] as number[], sessions_per_day: 1, description: '',
   });
   const [busy, setBusy] = useState(false);
@@ -69,7 +71,7 @@ export function ProjectNewPage() {
             </select>
           </Field>
           <Field label={t('projects.riwayah')} error={errs.riwayah}>
-            <input className="input" value={form.riwayah} onChange={(e) => set('riwayah', e.target.value)} required maxLength={80} />
+            <RiwayahSelect value={form.riwayah} onChange={(v) => set('riwayah', v)} invalid={!!errs.riwayah} />
           </Field>
           <Field label={t('projects.reader')} error={errs.reader_id}>
             <select className={`input${errs.reader_id ? ' invalid' : ''}`} value={form.reader_id} onChange={(e) => set('reader_id', e.target.value)} required>

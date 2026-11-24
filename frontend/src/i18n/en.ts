@@ -69,6 +69,7 @@ export const en = {
     progress: 'Progress', recorded: 'Recorded', reviewed: 'Reviewed', done: 'Done', none: 'No projects to show.',
     create_title: 'Create project', title_label: 'Title', session_count: 'Number of sessions', recording_days: 'Agreed recording days',
     sessions_per_day: 'Sessions per recording day', description: 'Description', mushaf_hint: 'A mushaf is always 60 sessions (one hizb each); the ranges are created on approval.',
+    riwayah_imam: 'Imam',
     created: 'Project created and sent for approval.',
   },
   project: {
