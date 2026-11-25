@@ -63,7 +63,7 @@ export function ProjectPage() {
           <>
             <div className="page-head">
               <div>
-                <div className="crumbs"><Link to="/projects">{t('projects.title')}</Link> / <span className="num">{p.code}</span></div>
+                <div className="crumbs"><Link to="/projects">{t('projects.title')}</Link></div>
                 <h1>{p.title}</h1>
                 <div className="row" style={{ marginTop: 4 }}>
                   <StatusBadge status={p.status} />

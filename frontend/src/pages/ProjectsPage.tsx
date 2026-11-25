@@ -34,14 +34,13 @@ export function ProjectsPage() {
       <Async state={state}>
         {(d) => {
           const q = query.trim().toLowerCase();
-          const rows = d.projects.filter((p: any) => !q || `${p.title} ${p.code} ${p.reader_name}`.toLowerCase().includes(q));
+          const rows = d.projects.filter((p: any) => !q || `${p.title} ${p.reader_name}`.toLowerCase().includes(q));
           if (!rows.length) return <div className="card"><Empty>{t('projects.none')}</Empty></div>;
           return (
             <div className="table-wrap">
               <table className="table">
                 <thead>
                   <tr>
-                    <th>{t('projects.code')}</th>
                     <th>{t('common.project')}</th>
                     <th className="hide-sm">{t('projects.type')}</th>
                     <th className="hide-sm">{t('projects.reader')}</th>
@@ -53,7 +52,6 @@ export function ProjectsPage() {
                 <tbody>
                   {rows.map((p: any) => (
                     <tr key={p.id} className="clickable" onClick={() => nav(`/projects/${p.id}`)}>
-                      <td className="num">{p.code}</td>
                       <td><Link to={`/projects/${p.id}`} onClick={(e) => e.stopPropagation()}>{p.title}</Link><div className="faint" style={{ fontSize: '0.8rem' }}>{p.riwayah}</div></td>
                       <td className="hide-sm">{t(`project_type.${p.project_type}`)}</td>
                       <td className="hide-sm">{p.reader_name}</td>

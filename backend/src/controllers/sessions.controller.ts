@@ -10,7 +10,7 @@ import {
   addExtraRound, afterUpload, assertUploadAllowed, decideNote, forwardFinalNotes,
   nextVersionNo, passSession, registerVersion, submitRound,
 } from '../services/workflow.service.js';
-import { badRequest, conflict, forbidden, notFound } from '../utils/http.js';
+import { badRequest, conflict, forbidden, notFound, safeFileName } from '../utils/http.js';
 
 async function loadSessionAccess(req: Request, sessionId: number) {
   const session = await sessionWithProject(sessionId);
@@ -33,7 +33,7 @@ export async function getSession(req: Request, res: Response) {
   const [detail, versions, rounds, notes, corrections, events, quality, timers] = await Promise.all([
     one(
       `SELECT s.*, ss.name_ar AS start_surah_ar, ss.name_en AS start_surah_en, es.name_ar AS end_surah_ar, es.name_en AS end_surah_en,
-         p.title AS project_title, p.status AS project_status, p.code AS project_code, p.session_count, p.riwayah, u.full_name AS reader_name
+         p.title AS project_title, p.status AS project_status, p.session_count, p.riwayah, u.full_name AS reader_name
        FROM sessions s JOIN projects p ON p.id = s.project_id JOIN users u ON u.id = p.reader_id
        LEFT JOIN surahs ss ON ss.number = s.start_surah LEFT JOIN surahs es ON es.number = s.end_surah WHERE s.id = $1`,
       [id],
@@ -164,10 +164,10 @@ export async function streamVersion(req: Request, res: Response) {
 
 export async function downloadVersion(req: Request, res: Response) {
   const v = await versionAccess(req);
-  const s = await one('SELECT s.number, p.code FROM sessions s JOIN projects p ON p.id = s.project_id WHERE s.id = $1', [v.session_id]);
+  const s = await one('SELECT s.number, p.title FROM sessions s JOIN projects p ON p.id = s.project_id WHERE s.id = $1', [v.session_id]);
   await audit(req.user!.id, 'version_downloaded', 'version', v.id, null, undefined, req);
   const ext = path.extname(v.file_path);
-  return streamFile(req, res, v.file_path, v.mime_type, `${s.code}-S${String(s.number).padStart(2, '0')}-${v.kind}-v${v.version_no}${ext}`);
+  return streamFile(req, res, v.file_path, v.mime_type, `${safeFileName(s.title)} - S${String(s.number).padStart(2, '0')} - ${v.kind} v${v.version_no}${ext}`);
 }
 
 // --------------------------------------------------------------------------

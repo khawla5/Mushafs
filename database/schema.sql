@@ -536,7 +536,6 @@ ALTER SEQUENCE public.project_members_id_seq OWNED BY public.project_members.id;
 
 CREATE TABLE public.projects (
     id bigint NOT NULL,
-    code text NOT NULL,
     title text NOT NULL,
     project_type public.project_type NOT NULL,
     template_id integer NOT NULL,
@@ -1056,11 +1055,6 @@ ALTER TABLE ONLY public.notifications
 
 ALTER TABLE ONLY public.project_members
     ADD CONSTRAINT project_members_pkey PRIMARY KEY (id);
-
--- Name: projects projects_code_key; Type: CONSTRAINT; Schema: public; Owner: -
-
-ALTER TABLE ONLY public.projects
-    ADD CONSTRAINT projects_code_key UNIQUE (code);
 
 -- Name: projects projects_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 

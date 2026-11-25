@@ -14,7 +14,7 @@ export async function myWork(req: Request, res: Response) {
   const [recording, reviews, decisions, technician, quality, mixing, finalForward] = await Promise.all([
     // Reader / mujiz / technician: projects being recorded (check-in screen)
     many(
-      `SELECT DISTINCT p.id, p.title, p.code, p.status,
+      `SELECT DISTINCT p.id, p.title, p.status,
          CASE WHEN p.reader_id = $1 THEN 'reader' ELSE m.team_role::text END AS seat
        FROM projects p LEFT JOIN project_members m ON m.project_id = p.id AND m.user_id = $1 AND m.removed_at IS NULL AND m.team_role IN ('mujiz','technician')
        WHERE p.status = 'recording' AND (p.reader_id = $1 OR m.id IS NOT NULL) ORDER BY p.title`,
@@ -88,13 +88,13 @@ export async function myWork(req: Request, res: Response) {
   let management: any = null;
   if (hasRole(req.user, 'admin', 'supervisor', 'production_manager')) {
     const [awaitingApproval, awaitingStart, awaitingFinalSplit, inDistribution, alerts] = await Promise.all([
-      many("SELECT id, title, code, created_at FROM projects WHERE status = 'pending_approval' ORDER BY created_at"),
-      many("SELECT id, title, code FROM projects WHERE status = 'approved' ORDER BY approved_at"),
+      many("SELECT id, title, created_at FROM projects WHERE status = 'pending_approval' ORDER BY created_at"),
+      many("SELECT id, title FROM projects WHERE status = 'approved' ORDER BY approved_at"),
       many(
-        `SELECT p.id, p.title, p.code FROM projects p WHERE p.status = 'mixing'
+        `SELECT p.id, p.title FROM projects p WHERE p.status = 'mixing'
          AND NOT EXISTS (SELECT 1 FROM sessions s WHERE s.project_id = p.id AND s.stage <> 'mixed')`,
       ),
-      many("SELECT id, title, code FROM projects WHERE status = 'distribution' ORDER BY title"),
+      many("SELECT id, title FROM projects WHERE status = 'distribution' ORDER BY title"),
       many(
         `SELECT t.id, t.stage, t.alert_level, t.due_at, t.session_id, s.number, p.id AS project_id, p.title AS project_title, u.full_name AS assignee
          FROM stage_timers t JOIN projects p ON p.id = t.project_id LEFT JOIN sessions s ON s.id = t.session_id LEFT JOIN users u ON u.id = t.assignee_id

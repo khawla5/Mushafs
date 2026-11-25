@@ -33,7 +33,7 @@ const MISSED_SQL = `
 
 export async function productionStatus(f: ReportFilter) {
   return many(
-    `SELECT p.id, p.code, p.title, p.status, p.session_count,
+    `SELECT p.id, p.title, p.status, p.session_count,
        count(s.*) FILTER (WHERE s.stage = 'pending')::int AS pending,
        count(s.*) FILTER (WHERE s.stage = 'editing')::int AS editing,
        count(s.*) FILTER (WHERE s.stage = 'in_review')::int AS in_review,

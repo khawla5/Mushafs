@@ -67,7 +67,7 @@ export const ar: Dict = {
     my_seat: 'دورك: {seat}', not_started: 'لم يبدأ التسجيل في هذا المشروع بعد.',
   },
   projects: {
-    title: 'المشاريع', new: 'مشروع جديد', code: 'الرمز', type: 'النوع', reader: 'القارئ / الملقي', riwayah: 'الرواية',
+    title: 'المشاريع', new: 'مشروع جديد', type: 'النوع', reader: 'القارئ / الملقي', riwayah: 'الرواية',
     progress: 'التقدم', recorded: 'مسجلة', reviewed: 'مراجعة', done: 'منجزة', none: 'لا توجد مشاريع للعرض.',
     create_title: 'إنشاء مشروع', title_label: 'العنوان', session_count: 'عدد الجلسات', recording_days: 'أيام التسجيل المتفق عليها',
     sessions_per_day: 'عدد الجلسات في يوم التسجيل', description: 'الوصف', mushaf_hint: 'المصحف دائمًا 60 جلسة (حزب لكل جلسة)، وتُنشأ النطاقات عند الاعتماد.',
@@ -166,7 +166,7 @@ export const ar: Dict = {
       'distribution-reach': 'الجهات والدول والقنوات لكل مصحف',
     },
     cols: {
-      code: 'الرمز', title: 'المشروع', status: 'الحالة', session_count: 'الجلسات', pending: 'لم تُسجّل', editing: 'مونتاج', in_review: 'مراجعة',
+      title: 'المشروع', status: 'الحالة', session_count: 'الجلسات', pending: 'لم تُسجّل', editing: 'مونتاج', in_review: 'مراجعة',
       in_decision: 'حكم', in_corrections: 'تصحيحات', ready_for_mixing: 'جاهزة', mixed: 'مكساج', done: 'منجزة', bottleneck: 'الاختناق',
       stage: 'المرحلة', person: 'الشخص', items: 'العدد', avg_hours: 'متوسط الساعات', on_time_pct: '% في الوقت', project: 'المشروع',
       agreed_days: 'الأيام المتفق عليها', recorded_days: 'أيام مسجلة', excused_days: 'معتذر', unexplained_days: 'غير مبرر', extra_days: 'أيام إضافية',

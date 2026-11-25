@@ -27,6 +27,11 @@ export function ah<Req extends Request = Request>(
   };
 }
 
+/** Removes characters that are not allowed in file names (keeps Arabic letters). */
+export function safeFileName(name: string): string {
+  return name.replace(/[\\/:*?"<>|\x00-\x1f]+/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 120) || 'mushaf';
+}
+
 export function toId(value: unknown, code = 'invalid_id'): number {
   const n = Number(value);
   if (!Number.isInteger(n) || n <= 0) throw badRequest(code);

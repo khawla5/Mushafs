@@ -93,6 +93,8 @@ npm run db:seed        # optional, development only: one demo user per role
 
 `npm run db:reset` drops and recreates the schema, then seeds it. It refuses to run when `NODE_ENV=production`.
 
+**Sample data (development).** With the app running (`npm run dev`), `npm run db:sample` fills the database with realistic projects by driving the API as the seed users: a mushaf with sessions at every review stage (notes, rulings, corrections, overdue alerts), a recitation that went through mixing, final review and distribution, one project waiting for approval and one approved but not started. Their titles end with "(تجربة)". Run it once on a fresh database (`npm run db:reset`).
+
 ### Demo accounts (seed only)
 
 All seeded accounts use the password **`Mushafs@2026`** (defined in [database/seed.sql](database/seed.sql)). Change or remove them before any real use.
@@ -226,6 +228,7 @@ Mushafs/
 | `npm run db:migrate` | Apply pending migrations |
 | `npm run db:seed` | Load demo users (development) |
 | `npm run db:reset` | Drop schema, migrate, seed (development) |
+| `npm run db:sample` | Add sample projects through the running API (development) |
 | `npm test` | End-to-end API tests against a test database |
 | `npm run typecheck` | TypeScript checks for backend and frontend |
 

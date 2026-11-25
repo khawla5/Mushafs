@@ -80,7 +80,7 @@ export const templates = [
 
 // ------------------------------------------------------------------ projects
 export interface DemoProject {
-  id: number; code: string; title: string; project_type: 'mushaf' | 'hadith' | 'recitation'; template_id: number; riwayah: string;
+  id: number; title: string; project_type: 'mushaf' | 'hadith' | 'recitation'; template_id: number; riwayah: string;
   reader_id: number; status: string; session_count: number; recording_weekdays: number[]; sessions_per_day: number; description: string | null;
   approved_at: string | null; started_at: string | null; recording_completed_at: string | null; mixing_started_at: string | null;
   final_review_started_at: string | null; completed_at: string | null; created_at: string;
@@ -94,27 +94,27 @@ const coreTeam = [
 
 export const projects: DemoProject[] = [
   {
-    id: 1, code: 'MSH-2026-001', title: 'مصحف الشيخ عبدالرحمن السالم', project_type: 'mushaf', template_id: 1, riwayah: 'حفص عن عاصم', reader_id: 6,
+    id: 1, title: 'مصحف الشيخ عبدالرحمن السالم', project_type: 'mushaf', template_id: 1, riwayah: 'حفص عن عاصم', reader_id: 6,
     status: 'recording', session_count: 60, recording_weekdays: [0, 1, 2, 3], sessions_per_day: 1,
     description: 'تسجيل المصحف كاملًا برواية حفص، بعد الفجر في استوديو المركز.',
     approved_at: ago(24 * 70), started_at: ago(24 * 66), recording_completed_at: null, mixing_started_at: null, final_review_started_at: null,
     completed_at: null, created_at: ago(24 * 75), team: coreTeam,
   },
   {
-    id: 2, code: 'MSH-2026-002', title: 'مصحف الشيخ يوسف البلوشي', project_type: 'mushaf', template_id: 1, riwayah: 'ورش عن نافع', reader_id: 11,
+    id: 2, title: 'مصحف الشيخ يوسف البلوشي', project_type: 'mushaf', template_id: 1, riwayah: 'ورش عن نافع', reader_id: 11,
     status: 'final_review', session_count: 60, recording_weekdays: [0, 2, 4], sessions_per_day: 2, description: null,
     approved_at: ago(24 * 190), started_at: ago(24 * 180), recording_completed_at: ago(24 * 60), mixing_started_at: ago(24 * 40),
     final_review_started_at: ago(24 * 12), completed_at: null, created_at: ago(24 * 195),
     team: [...coreTeam, { team_role: 'final_reviewer', user_id: 9 }, { team_role: 'final_reviewer', user_id: 8 }],
   },
   {
-    id: 3, code: 'HDT-2026-001', title: 'الأربعون النووية', project_type: 'hadith', template_id: 2, riwayah: 'إلقاء', reader_id: 12,
+    id: 3, title: 'الأربعون النووية', project_type: 'hadith', template_id: 2, riwayah: 'إلقاء', reader_id: 12,
     status: 'completed', session_count: 42, recording_weekdays: [1, 3], sessions_per_day: 2, description: 'سلسلة الأربعين النووية مع زيادات ابن رجب.',
     approved_at: ago(24 * 300), started_at: ago(24 * 290), recording_completed_at: ago(24 * 220), mixing_started_at: ago(24 * 200),
     final_review_started_at: ago(24 * 180), completed_at: ago(24 * 150), created_at: ago(24 * 305), team: coreTeam,
   },
   {
-    id: 4, code: 'MSH-2026-003', title: 'مصحف برواية قالون', project_type: 'mushaf', template_id: 1, riwayah: 'قالون عن نافع', reader_id: 12,
+    id: 4, title: 'مصحف برواية قالون', project_type: 'mushaf', template_id: 1, riwayah: 'قالون عن نافع', reader_id: 12,
     status: 'pending_approval', session_count: 60, recording_weekdays: [0, 1, 2, 3, 4], sessions_per_day: 1, description: 'بانتظار اعتماد إدارة المركز.',
     approved_at: null, started_at: null, recording_completed_at: null, mixing_started_at: null, final_review_started_at: null,
     completed_at: null, created_at: ago(30), team: [],

@@ -134,7 +134,7 @@ export async function dashboard(view: 'general' | 'detailed') {
       [p.id],
     );
     items.push({
-      id: p.id, code: p.code, title: p.title, type: p.project_type, riwayah: p.riwayah, status: p.status, reader_name: p.reader_name,
+      id: p.id, title: p.title, type: p.project_type, riwayah: p.riwayah, status: p.status, reader_name: p.reader_name,
       progress: prog, rings, distribution: dist, alerts, stalls, health: health(rings, alerts!),
     });
   }

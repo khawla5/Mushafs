@@ -36,13 +36,6 @@ export async function listProjects(req: Request, res: Response) {
   res.json({ projects: rows });
 }
 
-async function nextCode(type: string) {
-  const prefix = { mushaf: 'MSH', hadith: 'HDT', recitation: 'RCT' }[type] ?? 'PRJ';
-  const year = new Date().getFullYear();
-  const r = await one<{ n: number }>("SELECT count(*)::int + 1 AS n FROM projects WHERE code LIKE $1", [`${prefix}-${year}-%`]);
-  return `${prefix}-${year}-${String(r!.n).padStart(3, '0')}`;
-}
-
 /** PRJ-01: create a project (type, reader/announcer, riwayah). */
 export async function createProject(req: Request, res: Response) {
   const b = req.body as {
@@ -56,9 +49,9 @@ export async function createProject(req: Request, res: Response) {
   const reader = await one("SELECT id FROM users WHERE id = $1 AND is_active AND 'reader' = ANY(roles)", [b.reader_id]);
   if (!reader) throw badRequest('invalid_reader');
   const p = await one(
-    `INSERT INTO projects (code, title, project_type, template_id, riwayah, reader_id, session_count, recording_weekdays, sessions_per_day, description, created_by)
-     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11) RETURNING *`,
-    [await nextCode(b.project_type), b.title, b.project_type, template.id, b.riwayah, b.reader_id, sessionCount,
+    `INSERT INTO projects (title, project_type, template_id, riwayah, reader_id, session_count, recording_weekdays, sessions_per_day, description, created_by)
+     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) RETURNING *`,
+    [b.title, b.project_type, template.id, b.riwayah, b.reader_id, sessionCount,
       b.recording_weekdays, b.sessions_per_day, b.description, req.user!.id],
   );
   await audit(req.user!.id, 'project_created', 'project', p.id, { title: b.title, type: b.project_type }, undefined, req);

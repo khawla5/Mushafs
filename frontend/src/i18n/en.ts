@@ -65,7 +65,7 @@ export const en = {
     my_seat: 'Your seat: {seat}', not_started: 'The project has not started recording yet.',
   },
   projects: {
-    title: 'Projects', new: 'New project', code: 'Code', type: 'Type', reader: 'Reader / announcer', riwayah: 'Riwayah',
+    title: 'Projects', new: 'New project', type: 'Type', reader: 'Reader / announcer', riwayah: 'Riwayah',
     progress: 'Progress', recorded: 'Recorded', reviewed: 'Reviewed', done: 'Done', none: 'No projects to show.',
     create_title: 'Create project', title_label: 'Title', session_count: 'Number of sessions', recording_days: 'Agreed recording days',
     sessions_per_day: 'Sessions per recording day', description: 'Description', mushaf_hint: 'A mushaf is always 60 sessions (one hizb each); the ranges are created on approval.',
@@ -164,7 +164,7 @@ export const en = {
       'distribution-reach': 'Recipients, countries and channels per mushaf',
     },
     cols: {
-      code: 'Code', title: 'Project', status: 'Status', session_count: 'Sessions', pending: 'Not recorded', editing: 'Editing', in_review: 'In review',
+      title: 'Project', status: 'Status', session_count: 'Sessions', pending: 'Not recorded', editing: 'Editing', in_review: 'In review',
       in_decision: 'Ruling', in_corrections: 'Corrections', ready_for_mixing: 'Ready', mixed: 'Mixed', done: 'Done', bottleneck: 'Bottleneck',
       stage: 'Stage', person: 'Person', items: 'Items', avg_hours: 'Avg hours', on_time_pct: 'On time %', project: 'Project',
       agreed_days: 'Agreed days', recorded_days: 'Recorded days', excused_days: 'Excused', unexplained_days: 'Unexplained', extra_days: 'Extra days',

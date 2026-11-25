@@ -13,7 +13,7 @@ import { absolute } from '../services/audio.service.js';
 import { notify, usersWithRoles } from '../services/notifications.service.js';
 import { completeTimers, startTimer } from '../services/timers.service.js';
 import { startFinalReview } from '../services/workflow.service.js';
-import { badRequest, conflict, forbidden, notFound } from '../utils/http.js';
+import { badRequest, conflict, forbidden, notFound, safeFileName } from '../utils/http.js';
 
 // --------------------------------------------------------------------------
 // Quality samples
@@ -98,7 +98,7 @@ export async function rawArchive(req: Request, res: Response) {
   );
   await audit(req.user!.id, 'raw_archive_downloaded', 'project', projectId, { files: files.length }, undefined, req);
   res.setHeader('Content-Type', 'application/zip');
-  res.setHeader('Content-Disposition', `attachment; filename="${access.project.code}-raw.zip"`);
+  res.setHeader('Content-Disposition', `attachment; filename="raw.zip"; filename*=UTF-8''${encodeURIComponent(`${safeFileName(access.project.title)} - raw.zip`)}`);
   const zip = archiver('zip', { store: true });
   zip.on('error', (err) => res.destroy(err));
   zip.pipe(res);

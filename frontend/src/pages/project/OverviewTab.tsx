@@ -55,7 +55,6 @@ export function OverviewTab({ ctx }: { ctx: ProjectCtx }) {
         </div>
         <div className="divider" />
         <dl className="stack" style={{ margin: 0, gap: 6, fontSize: '0.9rem' }}>
-          <div className="row-between"><dt className="muted">{t('projects.code')}</dt><dd className="num" style={{ margin: 0 }}>{p.code}</dd></div>
           <div className="row-between"><dt className="muted">{t('journey.approved')}</dt><dd style={{ margin: 0 }}><DualDate value={p.approved_at} /></dd></div>
           <div className="row-between"><dt className="muted">{t('journey.recording')}</dt><dd style={{ margin: 0 }}><DualDate value={p.started_at} /></dd></div>
           {p.mixing_started_at && <div className="row-between"><dt className="muted">{t('journey.mixing')}</dt><dd style={{ margin: 0 }}><DualDate value={p.mixing_started_at} /></dd></div>}

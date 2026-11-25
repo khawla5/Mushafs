@@ -119,22 +119,22 @@ export function HomePage() {
                 )}
                 {m?.awaitingApproval.length > 0 && (
                   <Section title={t('home.approvals')} icon="shield" count={m.awaitingApproval.length}>
-                    {m.awaitingApproval.map((p: any) => <Item key={p.id} to={`/projects/${p.id}`} title={p.title} meta={p.code} />)}
+                    {m.awaitingApproval.map((p: any) => <Item key={p.id} to={`/projects/${p.id}`} title={p.title} />)}
                   </Section>
                 )}
                 {m?.awaitingStart.length > 0 && (
                   <Section title={t('home.to_start')} icon="users" count={m.awaitingStart.length}>
-                    {m.awaitingStart.map((p: any) => <Item key={p.id} to={`/projects/${p.id}?tab=team`} title={p.title} meta={p.code} />)}
+                    {m.awaitingStart.map((p: any) => <Item key={p.id} to={`/projects/${p.id}?tab=team`} title={p.title} />)}
                   </Section>
                 )}
                 {m?.awaitingFinalSplit.length > 0 && (
                   <Section title={t('home.final_split')} icon="list" count={m.awaitingFinalSplit.length}>
-                    {m.awaitingFinalSplit.map((p: any) => <Item key={p.id} to={`/projects/${p.id}?tab=final`} title={p.title} meta={p.code} />)}
+                    {m.awaitingFinalSplit.map((p: any) => <Item key={p.id} to={`/projects/${p.id}?tab=final`} title={p.title} />)}
                   </Section>
                 )}
                 {m?.inDistribution.length > 0 && (
                   <Section title={t('home.distribution')} icon="globe" count={m.inDistribution.length}>
-                    {m.inDistribution.map((p: any) => <Item key={p.id} to={`/projects/${p.id}?tab=distribution`} title={p.title} meta={p.code} />)}
+                    {m.inDistribution.map((p: any) => <Item key={p.id} to={`/projects/${p.id}?tab=distribution`} title={p.title} />)}
                   </Section>
                 )}
                 {m?.alerts.length > 0 && (

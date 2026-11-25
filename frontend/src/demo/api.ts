@@ -93,7 +93,7 @@ function detail(s: DemoSession) {
   const addVersion = (kind: 'raw' | 'mixed', no: number, h: number, reason: string, by: number) => {
     versions.forEach((v) => { if (v.kind === kind) v.is_approved = false; });
     const v = {
-      id: s.id * 10 + versions.length + 1, kind, version_no: no, original_name: `${p.code}-S${String(s.number).padStart(2, '0')}-${kind}.wav`,
+      id: s.id * 10 + versions.length + 1, kind, version_no: no, original_name: `${p.title} - S${String(s.number).padStart(2, '0')} - ${kind}.wav`,
       mime_type: 'audio/wav', size_bytes: 312_000_000 + s.number * 1_234_567, duration_sec: 1795 - s.number * 3, light_status: 'ready',
       is_approved: true, upload_reason: reason, uploaded_at: ago(h), uploaded_by_name: nameOf(by),
     };
@@ -189,7 +189,7 @@ function sessionDetail(id: number) {
     session: {
       id: s.id, project_id: p.id, number: s.number, title: s.title, stage: s.stage, start_surah: s.start_surah, start_ayah: s.start_ayah,
       end_surah: s.end_surah, end_ayah: s.end_ayah, start_surah_ar: a?.name_ar, start_surah_en: a?.name_en, end_surah_ar: b?.name_ar, end_surah_en: b?.name_en,
-      project_title: p.title, project_status: p.status, project_code: p.code, session_count: p.session_count, riwayah: p.riwayah, reader_name: nameOf(p.reader_id),
+      project_title: p.title, project_status: p.status, session_count: p.session_count, riwayah: p.riwayah, reader_name: nameOf(p.reader_id),
       current_round_id: round?.id ?? null,
     },
     versions: d.versions.slice().reverse(),
@@ -294,7 +294,7 @@ function myWork() {
   const visible = projects.filter(canView);
   const timerOf = (s: DemoSession) => ({ alert_level: s.alert, due_at: detail(s).timers[0]?.due_at ?? null });
   const recording = visible.filter((p) => p.status === 'recording' && (p.reader_id === uid || teamRolesOf(p, uid).some((r) => r === 'mujiz' || r === 'technician')))
-    .map((p) => ({ id: p.id, title: p.title, code: p.code, status: p.status, seat: p.reader_id === uid ? 'reader' : teamRolesOf(p, uid)[0] }));
+    .map((p) => ({ id: p.id, title: p.title, status: p.status, seat: p.reader_id === uid ? 'reader' : teamRolesOf(p, uid)[0] }));
   const reviews = sessions.filter((s) => s.stage === 'in_review' && s.round && reviewerFor(projectById(s.project_id)!, s, s.round) === uid)
     .map((s) => ({ round_id: s.id * 10, round_type: s.round, assigned_at: ago(s.enteredHoursAgo), unread: s.unread, session_id: s.id, number: s.number, project_id: s.project_id, project_title: projectById(s.project_id)!.title, ...timerOf(s) }));
   const decisions = has('mujiz') ? sessions.filter((s) => s.stage === 'in_decision')
@@ -305,7 +305,7 @@ function myWork() {
   const mixing = has('mixing_lead') ? [{ project_id: 2, project_title: projects[1].title, status: 'final_review', to_mix: 0, mixed: 0, final_corrections: 1 }] : [];
   const finalForward = has('production_manager', 'admin') ? [{ session_id: 2049, number: 49, project_id: 2, project_title: projects[1].title, notes: 1 }] : [];
   const management = isMgmt() ? {
-    awaitingApproval: [{ id: 4, title: projects[3].title, code: projects[3].code, created_at: projects[3].created_at }],
+    awaitingApproval: [{ id: 4, title: projects[3].title, created_at: projects[3].created_at }],
     awaitingStart: [], awaitingFinalSplit: [], inDistribution: [],
     alerts: sessions.filter((s) => s.alert > 0).map((s) => {
       const d = detail(s);
@@ -332,7 +332,7 @@ function dashboard(view: string) {
     const alerts = { orange: sessionsOf(p.id).filter((s) => s.alert === 1).length, red: sessionsOf(p.id).filter((s) => s.alert >= 2).length };
     const health = p.id === 1 ? { color: 'red', reason: 'red_alerts', value: alerts.red } : { color: 'green', reason: null, value: null };
     const stalls = sessionsOf(p.id).filter((s) => s.alert > 0).map((s) => ({ id: s.id, number: s.number, stage: s.stage, stage_entered_at: ago(s.enteredHoursAgo), alert_level: s.alert, assignee: detail(s).timers[0]?.assignee_name }));
-    return { id: p.id, code: p.code, title: p.title, type: p.project_type, riwayah: p.riwayah, status: p.status, reader_name: nameOf(p.reader_id), progress, rings: ring, distribution: reach, alerts, stalls, health };
+    return { id: p.id, title: p.title, type: p.project_type, riwayah: p.riwayah, status: p.status, reader_name: nameOf(p.reader_id), progress, rings: ring, distribution: reach, alerts, stalls, health };
   });
   if (!detailed) return { view: 'general', projects: items, reach: { recipients: 4, countries: 2 } };
   return { view: 'detailed', projects: items, center_health: { green: 2, blue: 0, red: 1 }, reach: [{ country: 'السعودية', recipients: 3 }, { country: 'إندونيسيا', recipients: 1 }] };
@@ -342,7 +342,7 @@ const REPORTS: Record<string, unknown> = {
   'production-status': projects.filter((p) => p.status !== 'pending_approval').map((p) => {
     const ss = sessionsOf(p.id);
     const c = (...st: string[]) => ss.filter((s) => st.includes(s.stage)).length;
-    return { code: p.code, title: p.title, status: p.status, session_count: p.session_count, pending: c('pending'), editing: c('editing'), in_review: c('in_review'),
+    return { title: p.title, status: p.status, session_count: p.session_count, pending: c('pending'), editing: c('editing'), in_review: c('in_review'),
       in_decision: c('in_decision', 'pm_forward'), in_corrections: c('in_corrections', 'awaiting_pass'), ready_for_mixing: c('ready_for_mixing'), mixed: c('mixed'), done: c('done'),
       bottleneck: p.id === 1 ? 'in_review' : p.id === 2 ? 'in_review' : null };
   }),
